@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+}
+
+@font-face {
+  font-family: 'Fira Code';
+  src: url('../assets/fonts/FiraCode-Light.ttf');
+}
+
+#root {
+  background-color: #111;
+  display: flex;
+  flex: 1;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.fancy-text {
+  font-family: 'Fira Code';
+  font-size: 26px;
+  text-align: center;
+}
+
+.main-div {
+  background-color: #222;
+  color: #fff;
+  border-radius: 5px;
+
+  display: flex;
+
+  height: 400px;
+  width: 500px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: -2px 2px 10px #000;
+
+  position: relative;
+}
+
+.button {
+  background-color: #44d;
+  padding: 6px;
+  user-select: none;
+  border-radius: 5px;
+  margin: 0 2px 0 2px;
+  height: min-content;
+
+  box-shadow: -2px 2px 10px #000;
+}
+
+.button>p {
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+}
+
+p {
+  margin: 0;
+}
+
+.button:active {
+  background-color: #44d6;
+}
+

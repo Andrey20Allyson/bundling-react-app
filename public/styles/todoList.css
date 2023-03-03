@@ -1,0 +1,58 @@
+.add-todo {
+  box-sizing: border-box;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 30px;
+  background-color: #2b62b4;
+  position: absolute;
+  left: 100%;
+  top: 100%;
+  transform: translate(-80%, -80%);
+}
+
+.add-todo:active {
+  background-color: #265192;
+}
+
+.todo-list {
+  background-color: #111;
+  width: 200px;
+  height: 70%;
+  border-radius: 5px;
+  box-shadow: 
+  -2px 2px 15px #000 inset,
+  -2px 2px 5px #fff2,
+  2px -2px 5px #0004;
+  overflow: hidden;
+  position: relative;
+}
+
+.todo-list>div {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.todo-item {
+  margin-top: 4px;
+  margin-bottom: 4px;
+  background-color: #222;
+  width: 90%;
+  height: 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  box-shadow: -2px 2px 10px #000;
+}
+
+.todo-item>p {
+  font-family: 'Fira Code';
+  user-select: none;
+}
