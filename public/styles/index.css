@@ -10,12 +10,22 @@ body {
 }
 
 #root {
-  background-color: #111;
+  background-color: #fff;
   display: flex;
   flex: 1;
+  color: #fff;
 
   justify-content: center;
   align-items: center;
+}
+
+.root-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #111;
 }
 
 .fancy-text {
@@ -24,9 +34,17 @@ body {
   text-align: center;
 }
 
+h1.fancy-text {
+  width: 80%;
+  border-width: 0;
+  border-bottom-width: 2px;
+  border-color: #fff3;
+  border-style: solid;
+  border-radius: 5px;
+}
+
 .main-div {
   background-color: #222;
-  color: #fff;
   border-radius: 5px;
 
   display: flex;
@@ -66,3 +84,30 @@ p {
   background-color: #44d6;
 }
 
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.config-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 10px;
+}
+
+.light.root-div {
+  background-color: #bbb;
+  color: #000;
+}
+
+.light.main-div {
+  background-color: #ddd;
+  box-shadow: -2px 2px 10px #0006;
+}
+
+h1.light.fancy-text {
+  border-color: #0003;
+}
