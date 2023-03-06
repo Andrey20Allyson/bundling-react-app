@@ -1,0 +1,24 @@
+.switch-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.switch-div>svg {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.switch-div>p {
+  user-select: none;
+}
+
+.switch-body {
+  fill: #111
+}
+
+/* Light theme */
+
+.light.switch-body {
+  fill: #aaa
+}

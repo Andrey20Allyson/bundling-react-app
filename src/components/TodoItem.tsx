@@ -22,7 +22,7 @@ export default function TodoItem(props: TodoItemProps) {
           onClick={() => setChecked(!checked)}>
           {checkboxText}
         </div>
-        <ConfigButton/>
+        <ConfigButton />
       </div>
     </div>
   )

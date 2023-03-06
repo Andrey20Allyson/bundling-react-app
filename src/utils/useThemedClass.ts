@@ -1,7 +1,5 @@
-import { RootState } from "../storage"
-import { useAppSelector } from "../storage/redux-hooks"
-
-const themeSelector = (state: RootState) => state.theme;
+import { useAppSelector } from "../storage/redux-hooks";
+import { themeSelector } from "../storage/slices/theme";
 
 export default function useThemedClass(className: string) {
   const { theme } = useAppSelector(themeSelector);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useThemedClass from "../utils/useThemedClass";
 
 export interface ConfigButtonProps {
 
@@ -12,7 +13,7 @@ export interface SVGPointProps {
 }
 
 export function SVGPoint(props: SVGPointProps) {
-  const { color = '#fff', size = 0, x = 0, y = 0 } = props;
+  const { color, size = 0, x = 0, y = 0 } = props;
 
   const style: React.CSSProperties = {
     fill: color,
@@ -28,7 +29,7 @@ export default function ConfigButton(props: ConfigButtonProps) {
     const points = [];
 
     for (let i = 0; i < 3; i++) {
-      points.push(<SVGPoint size={4} y={(20 - 4) * (i / 2)} color="#fffa" key={i} />);
+      points.push(<SVGPoint size={4} y={(20 - 4) * (i / 2)} key={i} />);
     }
 
     return {
@@ -37,7 +38,7 @@ export default function ConfigButton(props: ConfigButtonProps) {
   });
 
   return (
-    <div className="config-button">
+    <div className={useThemedClass('config-button')}>
       <svg width={4} height={20}>
         {points}
       </svg>

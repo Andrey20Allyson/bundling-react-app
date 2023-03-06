@@ -9,12 +9,13 @@ body {
   src: url('../assets/fonts/FiraCode-Light.ttf');
 }
 
+:root {
+  font-family: 'Fira Code';
+}
+
 #root {
-  background-color: #fff;
   display: flex;
   flex: 1;
-  color: #fff;
-
   justify-content: center;
   align-items: center;
 }
@@ -22,14 +23,16 @@ body {
 .root-div {
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-rows: 1fr 6fr;
+  grid-template-columns: 1fr;
+  justify-items: center;
   align-items: center;
+  color: #fff;
   background-color: #111;
 }
 
 .fancy-text {
-  font-family: 'Fira Code';
   font-size: 26px;
   text-align: center;
 }
@@ -98,6 +101,12 @@ p {
   width: 10px;
 }
 
+.config-button>svg {
+  fill: #aaa;
+}
+
+/* Light theme */
+
 .light.root-div {
   background-color: #bbb;
   color: #000;
@@ -110,4 +119,8 @@ p {
 
 h1.light.fancy-text {
   border-color: #0003;
+}
+
+.light.config-button>svg {
+  fill: #111
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useThemedClass from "../utils/useThemedClass";
 import TodoItem from "./TodoItem";
 
 export interface TodoListProps {
@@ -105,11 +106,10 @@ export default function TodoList(props: any) {
     scrollVelocity = scrollVelocity * .8;
   }
 
-  console.log(scrollVelocity);
   if (!state.pressing && Date.now() - state.scrollTiming < 20) setTimeout(runScrollVelocity);
 
   return (
-    <div className="todo-list"
+    <div className={useThemedClass("todo-list")}
       onMouseMove={state.pressing ? mouseMoveHandler : undefined}
       onMouseDown={() => setState({ ...state, pressing: true, scroll: scrollRef.current, scrollVelocity, scrollTiming })}
       onMouseUp={() => setState({ ...state, pressing: false, scroll: scrollRef.current, scrollVelocity, scrollTiming })}>
