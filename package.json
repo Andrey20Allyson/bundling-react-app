@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "webpack": "webpack",
+    "build": "tsc && webpack",
     "dev": "node scripts/dev.js"
   },
   "keywords": [],
