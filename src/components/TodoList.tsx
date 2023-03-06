@@ -1,72 +1,38 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+import { scrollElementOnY } from "../utils/elementScroll";
 import useThemedClass from "../utils/useThemedClass";
 import TodoItem from "./TodoItem";
 
+export interface Todo {
+  title: string;
+  done: boolean;
+  creation: number;
+  expires?: number;
+}
+
 export interface TodoListProps {
-  onItemSelected: (index: number) => void;
+  itens?: Todo[];
+  onItemSelected?: (index: number) => void;
 }
 
-export interface ScrollRef {
-  current: number;
-}
-
-export interface ScrollElementOptions {
-  parent?: HTMLElement;
-  element: HTMLElement;
-  scrollRef: ScrollRef;
-  pixels: number;
-}
-
-export function scrollElementOnY(options: ScrollElementOptions) {
-  const { element, pixels, scrollRef, parent = element.parentElement } = options;
-  let scroll = scrollRef.current;
-
-  if (!parent) return;
-
-  const newScroll = scroll + pixels;
-  const minScroll = -element.clientHeight + parent.clientHeight;
-  const maxScroll = 0;
-
-  const canScrollDown = newScroll > minScroll
-  const canScrollUp = newScroll < maxScroll;
-
-  if (canScrollUp) {
-    if (canScrollDown) {
-      scroll = newScroll;
-    } else {
-      scroll = minScroll;
-    }
-  } else {
-    scroll = maxScroll;
-  }
-
-  element.style.top = `${scroll}px`;
-
-  scrollRef.current = scroll;
-}
-
-export default function TodoList(props: any) {
-  const [state, setState] = useState(() => {
+export default function TodoList(props: TodoListProps) {
+  const [pressing, setPressing] = useState(false);
+  const itens = useMemo(() => {
     const itens = [];
 
     for (let i = 0; i < 50; i++) {
       itens.push(<TodoItem title={`Item Nº ${i + 1}`} key={i} />);
     }
 
+    return itens;
+  }, []);
+  const scroll = useMemo(() => {
     return {
-      itens,
-      scroll: 0,
-      scrollVelocity: 0,
-      scrollTiming: 0,
-      pressing: false,
+      current: 0,
+      velocity: 0,
+      timing: 0,
     };
-  });
-
-  let { scrollVelocity, scrollTiming } = state;
-
-  let scrollRef: ScrollRef = {
-    current: state.scroll,
-  };
+  }, []);
 
   let scrollableRef: React.RefObject<HTMLDivElement> = {
     current: null,
@@ -82,11 +48,11 @@ export default function TodoList(props: any) {
       element,
       parent,
       pixels: ev.movementY,
-      scrollRef,
+      scrollRef: scroll,
     });
 
-    scrollVelocity = ev.movementY * 2;
-    scrollTiming = Date.now();
+    scroll.velocity = ev.movementY * 2;
+    scroll.timing = Date.now();
   }
 
   function runScrollVelocity() {
@@ -94,27 +60,31 @@ export default function TodoList(props: any) {
     const parent = element?.parentElement;
 
     if (!element || !parent) return;
-    if (scrollVelocity > 0.1 || scrollVelocity < -0.1) requestAnimationFrame(runScrollVelocity);
+    if (scroll.velocity > 0.1 || scroll.velocity < -0.1) requestAnimationFrame(runScrollVelocity);
 
     scrollElementOnY({
-      scrollRef,
+      scrollRef: scroll,
       element,
       parent,
-      pixels: scrollVelocity * 2,
+      pixels: scroll.velocity,
     });
 
-    scrollVelocity = scrollVelocity * .8;
+    scroll.velocity = scroll.velocity * .8;
   }
 
-  if (!state.pressing && Date.now() - state.scrollTiming < 20) setTimeout(runScrollVelocity);
+  if (!pressing && Date.now() - scroll.timing < 20) setTimeout(runScrollVelocity);
+
+  window.onscroll = () => false;
 
   return (
-    <div className={useThemedClass("todo-list")}
-      onMouseMove={state.pressing ? mouseMoveHandler : undefined}
-      onMouseDown={() => setState({ ...state, pressing: true, scroll: scrollRef.current, scrollVelocity, scrollTiming })}
-      onMouseUp={() => setState({ ...state, pressing: false, scroll: scrollRef.current, scrollVelocity, scrollTiming })}>
+    <div
+      className={useThemedClass("todo-list")}
+      onMouseDown={() => setPressing(true)}
+      onMouseUp={() => setPressing(false)}
+      onMouseLeave={() => setPressing(false)}
+      onMouseMove={pressing ? mouseMoveHandler : undefined}>
       <div ref={scrollableRef}>
-        {state.itens}
+        {itens}
       </div>
     </div>
   )
